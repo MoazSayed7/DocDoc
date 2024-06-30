@@ -32,7 +32,7 @@ class AppTextButton extends StatelessWidget {
       style: ButtonStyle(
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 16.0.r),
+            borderRadius: BorderRadius.circular(borderRadius ?? 16.0),
           ),
         ),
         backgroundColor: WidgetStatePropertyAll(
