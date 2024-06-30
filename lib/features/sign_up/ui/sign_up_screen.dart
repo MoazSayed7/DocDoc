@@ -5,15 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/styles.dart';
 import '../../../core/widgets/app_text_button.dart';
-import '../data/models/login_request_body.dart';
-import '../logic/cubit/login_cubit.dart';
-import 'widgets/donot_have_account_text.dart';
-import 'widgets/email_and_password.dart';
-import 'widgets/login_bloc_listener.dart';
-import 'widgets/terms_and_conditions_text.dart';
+import '../../login/ui/widgets/terms_and_conditions_text.dart';
+import '../logic/sign_up_cubit.dart';
+import 'widgets/already_have_account_text.dart';
+import 'widgets/sign_up_bloc_listener.dart';
+import 'widgets/sign_up_form.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,39 +25,31 @@ class LoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Welcome Back',
+                  'Create Account',
                   style: TextStyles.font24BlueBold,
                 ),
                 verticalSpace(8),
                 Text(
-                  'We\'re excited to have you back, can\'t wait to see what you\'ve been up to since you last logged in.',
+                  'Sign up now and start exploring all that our app has to offer. We\'re excited to welcome you to our community!',
                   style: TextStyles.font14GrayRegular,
                 ),
                 verticalSpace(36),
                 Column(
                   children: [
-                    const EmailAndPassword(),
-                    verticalSpace(24),
-                    Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyles.font13BlueRegular,
-                      ),
-                    ),
+                    const SignupForm(),
                     verticalSpace(40),
                     AppTextButton(
-                      buttonText: "Login",
+                      buttonText: "Create Account",
                       textStyle: TextStyles.font16WhiteSemiBold,
-                      onPressed: () async* {
-                        await validateThenDoLogin(context);
+                      onPressed: () {
+                        validateThenDoSignup(context);
                       },
                     ),
                     verticalSpace(16),
                     const TermsAndConditionsText(),
-                    verticalSpace(60),
-                    const DonotHaveAccountText(),
-                    const LoginBlocListener(),
+                    verticalSpace(30),
+                    const AlreadyHaveAccountText(),
+                    const SignupBlocListener(),
                   ],
                 ),
               ],
@@ -69,9 +60,9 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Future<void> validateThenDoLogin(BuildContext context) async {
-    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
-      await context.read<LoginCubit>().emitLoginStates();
+  void validateThenDoSignup(BuildContext context) {
+    if (context.read<SignupCubit>().formKey.currentState!.validate()) {
+      context.read<SignupCubit>().emitSignupStates();
     }
   }
 }
