@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/styles.dart';
 import '../../../core/widgets/app_text_button.dart';
-import '../data/models/login_request_body.dart';
 import '../logic/cubit/login_cubit.dart';
 import 'widgets/donot_have_account_text.dart';
 import 'widgets/email_and_password.dart';
@@ -50,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                     AppTextButton(
                       buttonText: "Login",
                       textStyle: TextStyles.font16WhiteSemiBold,
-                      onPressed: () async* {
+                      onPressed: () async {
                         await validateThenDoLogin(context);
                       },
                     ),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "269964795582",
+    "project_id": "fltter-app-distribution",
+    "storage_bucket": "fltter-app-distribution.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269964795582:android:9a60d08938f7acea6dc8ef",
+        "android_client_info": {
+          "package_name": "com.example.docdoc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhzaxDtmOReaCINWDYElUi3i7XkEizPuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
