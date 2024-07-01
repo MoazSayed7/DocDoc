@@ -1,7 +1,8 @@
-import 'package:docdoc/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/helpers/extensions.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/theming/styles.dart';
@@ -43,6 +44,35 @@ class SignupBlocListener extends StatelessWidget {
     );
   }
 
+  void setupErrorState(BuildContext context, String error) {
+    context.pop();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 32.sp,
+        ),
+        content: Text(
+          error,
+          style: TextStyles.font15DarkBlueMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              context.pop();
+            },
+            child: Text(
+              'Got it',
+              style: TextStyles.font14BlueSemiBold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   void showSuccessDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -71,35 +101,6 @@ class SignupBlocListener extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  void setupErrorState(BuildContext context, String error) {
-    context.pop();
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        icon: const Icon(
-          Icons.error,
-          color: Colors.red,
-          size: 32,
-        ),
-        content: Text(
-          error,
-          style: TextStyles.font15DarkBlueMedium,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.pop();
-            },
-            child: Text(
-              'Got it',
-              style: TextStyles.font14BlueSemiBold,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

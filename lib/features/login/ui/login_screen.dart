@@ -6,7 +6,7 @@ import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/styles.dart';
 import '../../../core/widgets/app_text_button.dart';
 import '../logic/cubit/login_cubit.dart';
-import 'widgets/donot_have_account_text.dart';
+import 'widgets/dont_have_account_text.dart';
 import 'widgets/email_and_password.dart';
 import 'widgets/login_bloc_listener.dart';
 import 'widgets/terms_and_conditions_text.dart';
@@ -49,14 +49,14 @@ class LoginScreen extends StatelessWidget {
                     AppTextButton(
                       buttonText: "Login",
                       textStyle: TextStyles.font16WhiteSemiBold,
-                      onPressed: () async {
-                        await validateThenDoLogin(context);
+                      onPressed: () {
+                        validateThenDoLogin(context);
                       },
                     ),
                     verticalSpace(16),
                     const TermsAndConditionsText(),
                     verticalSpace(60),
-                    const DonotHaveAccountText(),
+                    const DontHaveAccountText(),
                     const LoginBlocListener(),
                   ],
                 ),
@@ -68,9 +68,9 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Future<void> validateThenDoLogin(BuildContext context) async {
+  void validateThenDoLogin(BuildContext context) {
     if (context.read<LoginCubit>().formKey.currentState!.validate()) {
-      await context.read<LoginCubit>().emitLoginStates();
+      context.read<LoginCubit>().emitLoginStates();
     }
   }
 }
