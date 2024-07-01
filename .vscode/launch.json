@@ -2,15 +2,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "DocDoc Development",
+            "name": "DocDoc Developement",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main_development.dart",
+            "program": "lib/main_developement.dart",
             "args": [
                 "--flavor",
-                "Development",
+                "Developement",
                 "--target",
-                "lib/main_development.dart"
+                "lib/main_developement.dart"
             ]
         },
         {

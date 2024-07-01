@@ -6,7 +6,6 @@ import 'core/routing/app_router.dart';
 import 'doc_app.dart';
 
 void main() async {
-  
   await Future.wait([
     setupGetIt(),
     ScreenUtil.ensureScreenSize(),
