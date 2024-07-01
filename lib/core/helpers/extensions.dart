@@ -1,5 +1,9 @@
 import 'package:flutter/widgets.dart';
 
+extension ListExtension<T> on List<T>? {
+  bool isNullOrEmpty() => this == null || this!.isEmpty;
+}
+
 extension Navigation on BuildContext {
   void pop() => Navigator.of(this).pop();
 
@@ -17,4 +21,8 @@ extension Navigation on BuildContext {
     return Navigator.of(this)
         .pushReplacementNamed(routeName, arguments: arguments);
   }
+}
+
+extension StringExtension on String? {
+  bool isNullOrEmpty() => this == null || this == "";
 }

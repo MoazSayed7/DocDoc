@@ -1,12 +1,12 @@
-import 'package:docdoc/core/helpers/extensions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/helpers/extensions.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theming/styles.dart';
 
-class DonotHaveAccountText extends StatelessWidget {
-  const DonotHaveAccountText({super.key});
+class DontHaveAccountText extends StatelessWidget {
+  const DontHaveAccountText({super.key});
 
   @override
   Widget build(BuildContext context) {
