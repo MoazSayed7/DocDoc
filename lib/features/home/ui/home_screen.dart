@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/helpers/spacing.dart';
 import 'widgets/doctors_blue_container.dart';
@@ -13,15 +14,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           width: double.infinity,
-          margin: const EdgeInsets.fromLTRB(
-            20.0,
-            16.0,
-            20.0,
-            28.0,
+          margin: EdgeInsets.fromLTRB(
+            20.0.w,
+            16.0.h,
+            20.0.w,
+            28.0.h,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,9 +30,9 @@ class HomeScreen extends StatelessWidget {
               const DoctorsBlueContainer(),
               verticalSpace(24),
               const DoctorsSpecialitySeeAll(),
-              verticalSpace(18),
+              verticalSpace(16),
               const SpecializationsBlocBuilder(),
-              verticalSpace(8),
+              verticalSpace(12),
               const DoctorsBlocBuilder(),
             ],
           ),

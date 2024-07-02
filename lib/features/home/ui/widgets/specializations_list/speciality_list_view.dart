@@ -7,7 +7,7 @@ import '../../../logic/home_cubit.dart';
 import 'speciality_list_view_item.dart';
 
 class SpecialityListView extends StatefulWidget {
-  final List<SpecializationsData?> specializationDataList;
+  final List<SpecializationsData?>? specializationDataList;
   const SpecialityListView({super.key, required this.specializationDataList});
 
   @override
@@ -20,10 +20,10 @@ class _SpecialityListViewState extends State<SpecialityListView> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100.h,
+      height: 86.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: widget.specializationDataList.length,
+        itemCount: widget.specializationDataList?.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
@@ -31,11 +31,11 @@ class _SpecialityListViewState extends State<SpecialityListView> {
                 selectedSpecializationIndex = index;
               });
               context.read<HomeCubit>().getDoctorsList(
-                    specializationId: widget.specializationDataList[index]?.id,
+                    specializationId: widget.specializationDataList?[index]?.id,
                   );
             },
             child: SpecialityListViewItem(
-              specializationsData: widget.specializationDataList[index],
+              specializationsData: widget.specializationDataList?[index],
               itemIndex: index,
               selectedIndex: selectedSpecializationIndex,
             ),

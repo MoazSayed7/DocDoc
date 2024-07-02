@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/models/specializations_response_model.dart';
 import '../../../logic/home_cubit.dart';
 import '../../../logic/home_state.dart';
 import 'doctors_list_view.dart';
@@ -15,25 +16,21 @@ class DoctorsBlocBuilder extends StatelessWidget {
           current is DoctorsSuccess || current is DoctorsError,
       builder: (context, state) {
         return state.maybeWhen(
-          doctorsSuccess: (doctorsList) {
-            return setupSuccess(doctorsList);
+          doctorsSuccess: (doctorList) {
+            return setupSuccess(doctorList);
           },
-          doctorsError: (errorHandler) => setupError(),
-          orElse: () {
-            return const SizedBox.shrink();
-          },
+          doctorsError: (error) => setupError(),
+          orElse: () => const SizedBox.shrink(),
         );
       },
     );
   }
 
-  Widget setupSuccess(doctorsList) {
-    return DoctorsListView(
-      doctorsList: doctorsList,
-    );
-  }
+  Widget setupError() => const SizedBox.shrink();
 
-  Widget setupError() {
-    return const SizedBox.shrink();
+  Widget setupSuccess(List<Doctors?>? doctorList) {
+    return DoctorsListView(
+      doctorsList: doctorList,
+    );
   }
 }

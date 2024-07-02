@@ -14,39 +14,42 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getDoctorsList({required int? specializationId}) {
     List<Doctors?>? doctorsList =
-        getDoctorsListBySpecializationId(specializationId);
-
-    if (!doctorsList.isNullOrEmpty()) {
+        getDoctorsListBySpecializationId(specializationId: specializationId!);
+    if (!doctorsList!.isNullOrEmpty()) {
       emit(HomeState.doctorsSuccess(doctorsList));
     } else {
       emit(HomeState.doctorsError(ErrorHandler.handle('No doctors found')));
     }
   }
 
-  /// returns the list of doctors based on the specialization id
-  getDoctorsListBySpecializationId(specializationId) {
-    return specializationsList
-        ?.firstWhere((specialization) => specialization?.id == specializationId)
+  /// returns the list of doctors for the given specialization id
+  List<Doctors?>? getDoctorsListBySpecializationId(
+      {required int specializationId}) {
+    return specializationsList!
+        .firstWhere(
+          (specialization) => specialization!.id == specializationId,
+        )
         ?.doctorsList;
   }
 
   void getSpecializations() async {
     emit(const HomeState.specializationsLoading());
     final response = await _homeRepo.getSpecialization();
-    response.when(
-      success: (specializationsResponseModel) {
-        specializationsList =
-            specializationsResponseModel.specializationDataList ?? [];
-
-        // getting the doctors list for the first specialization by default.
-        getDoctorsList(specializationId: specializationsList?.first?.id);
-
-        emit(HomeState.specializationsSuccess(
-            specializationsResponseModel.specializationDataList));
-      },
-      failure: (errorHandler) {
-        emit(HomeState.specializationsError(errorHandler));
-      },
-    );
+    try {
+      response.when(
+        success: (specializationResponseModel) {
+          specializationsList =
+              specializationResponseModel.specializationDataList ?? [];
+          // getting the doctors list for the first specialization by default
+          getDoctorsList(specializationId: specializationsList!.first?.id);
+          emit(HomeState.specializationsSuccess(specializationsList));
+        },
+        failure: (error) {
+          emit(HomeState.specializationsError(error));
+        },
+      );
+    } catch (error) {
+      emit(HomeState.specializationsError(ErrorHandler.handle(error)));
+    }
   }
 }

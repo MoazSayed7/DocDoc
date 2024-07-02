@@ -11,6 +11,7 @@ class HomeTopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +26,6 @@ class HomeTopBar extends StatelessWidget {
             ),
           ],
         ),
-        const Spacer(),
         CircleAvatar(
           radius: 24.0.r,
           backgroundColor: ColorsManager.moreLighterGray,

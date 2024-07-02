@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/helpers/extensions.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
 import '../../logic/cubit/login_cubit.dart';
 import 'password_validations.dart';
@@ -34,15 +35,21 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
           AppTextFormField(
             hintText: 'Email',
             validator: (value) {
-              if (value == null ||
-                  value.isEmpty ||
-                  !AppRegex.isEmailValid(value)) {
-                return 'Please enter a valid email';
+              String email = (value ?? '').trim();
+
+              context.read<LoginCubit>().emailController.text = email;
+
+              if (email.isEmpty) {
+                return 'Please enter an email address';
+              }
+
+              if (!AppRegex.isEmailValid(email)) {
+                return 'Please enter a valid email address';
               }
             },
             controller: context.read<LoginCubit>().emailController,
           ),
-          verticalSpace(18),
+          verticalSpace(16),
           AppTextFormField(
             controller: context.read<LoginCubit>().passwordController,
             hintText: 'Password',
@@ -58,12 +65,12 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
               ),
             ),
             validator: (value) {
-              if (value == null || value.isEmpty) {
+              if (value.isNullOrEmpty() || !AppRegex.isPasswordValid(value!)) {
                 return 'Please enter a valid password';
               }
             },
           ),
-          verticalSpace(24),
+          verticalSpace(16),
           PasswordValidations(
             hasLowerCase: hasLowercase,
             hasUpperCase: hasUppercase,

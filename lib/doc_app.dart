@@ -17,9 +17,15 @@ class DocApp extends StatelessWidget {
       minTextAdapt: true,
       child: MaterialApp(
         title: 'DocDoc App',
+        themeMode: ThemeMode.light,
         theme: ThemeData(
           primaryColor: ColorsManager.mainBlue,
           scaffoldBackgroundColor: Colors.white,
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: ColorsManager.mainBlue,
+            selectionColor: Color.fromARGB(188, 36, 124, 255),
+            selectionHandleColor: ColorsManager.mainBlue,
+          ),
         ),
         debugShowCheckedModeBanner: false,
         initialRoute:

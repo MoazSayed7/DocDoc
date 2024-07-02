@@ -21,11 +21,13 @@ class SpecialityListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: itemIndex == 0 ? 0 : 24.w),
+      padding: EdgeInsetsDirectional.only(start: itemIndex == 0 ? 0 : 16.w),
       child: Column(
         children: [
           itemIndex == selectedIndex
               ? Container(
+                  width: 58.w,
+                  height: 58.h,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: ColorsManager.darkBlue,
@@ -37,18 +39,22 @@ class SpecialityListViewItem extends StatelessWidget {
                     backgroundColor: ColorsManager.lightBlue,
                     child: SvgPicture.asset(
                       'assets/svgs/general_speciality.svg',
-                      height: 42.h,
-                      width: 42.w,
+                      height: 44.h,
+                      width: 44.w,
                     ),
                   ),
                 )
-              : CircleAvatar(
-                  radius: 28.r,
-                  backgroundColor: ColorsManager.lightBlue,
-                  child: SvgPicture.asset(
-                    'assets/svgs/general_speciality.svg',
-                    height: 40.h,
-                    width: 40.w,
+              : SizedBox(
+                  width: 56.w,
+                  height: 56.h,
+                  child: CircleAvatar(
+                    radius: 28.r,
+                    backgroundColor: ColorsManager.lightBlue,
+                    child: SvgPicture.asset(
+                      'assets/svgs/general_speciality.svg',
+                      height: 40.h,
+                      width: 40.w,
+                    ),
                   ),
                 ),
           verticalSpace(8),
