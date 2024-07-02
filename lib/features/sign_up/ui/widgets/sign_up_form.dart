@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/helpers/extensions.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
 import '../../../login/ui/widgets/password_validations.dart';
 import '../../logic/sign_up_cubit.dart';
@@ -16,7 +17,6 @@ class SignupForm extends StatefulWidget {
 
 class _SignupFormState extends State<SignupForm> {
   bool isPasswordObscureText = true;
-  bool isPasswordConfirmationObscureText = true;
 
   bool hasLowercase = false;
   bool hasUppercase = false;
@@ -35,37 +35,34 @@ class _SignupFormState extends State<SignupForm> {
           AppTextFormField(
             hintText: 'Name',
             validator: (value) {
-              if (value == null || value.isEmpty) {
+              if (value.isNullOrEmpty()) {
                 return 'Please enter a valid name';
               }
             },
             controller: context.read<SignupCubit>().nameController,
           ),
-          verticalSpace(18),
+          verticalSpace(16),
           AppTextFormField(
             hintText: 'Phone number',
             validator: (value) {
-              if (value == null ||
-                  value.isEmpty ||
-                  !AppRegex.isPhoneNumberValid(value)) {
+              if (value.isNullOrEmpty() ||
+                  !AppRegex.isPhoneNumberValid(value!)) {
                 return 'Please enter a valid phone number';
               }
             },
             controller: context.read<SignupCubit>().phoneController,
           ),
-          verticalSpace(18),
+          verticalSpace(16),
           AppTextFormField(
             hintText: 'Email',
             validator: (value) {
-              if (value == null ||
-                  value.isEmpty ||
-                  !AppRegex.isEmailValid(value)) {
+              if (value.isNullOrEmpty() || !AppRegex.isEmailValid(value!)) {
                 return 'Please enter a valid email';
               }
             },
             controller: context.read<SignupCubit>().emailController,
           ),
-          verticalSpace(18),
+          verticalSpace(16),
           AppTextFormField(
             controller: context.read<SignupCubit>().passwordController,
             hintText: 'Password',
@@ -81,37 +78,37 @@ class _SignupFormState extends State<SignupForm> {
               ),
             ),
             validator: (value) {
-              if (value == null || value.isEmpty) {
+              if (value.isNullOrEmpty() || !AppRegex.isPasswordValid(value!)) {
                 return 'Please enter a valid password';
               }
             },
           ),
-          verticalSpace(18),
+          verticalSpace(16),
           AppTextFormField(
             controller:
                 context.read<SignupCubit>().passwordConfirmationController,
             hintText: 'Password Confirmation',
-            isObscureText: isPasswordConfirmationObscureText,
+            isObscureText: isPasswordObscureText,
             suffixIcon: GestureDetector(
               onTap: () {
                 setState(() {
-                  isPasswordConfirmationObscureText =
-                      !isPasswordConfirmationObscureText;
+                  isPasswordObscureText = !isPasswordObscureText;
                 });
               },
               child: Icon(
-                isPasswordConfirmationObscureText
-                    ? Icons.visibility_off
-                    : Icons.visibility,
+                isPasswordObscureText ? Icons.visibility_off : Icons.visibility,
               ),
             ),
             validator: (value) {
-              if (value == null || value.isEmpty) {
+              if (value.isNullOrEmpty() || !AppRegex.isPasswordValid(value!)) {
                 return 'Please enter a valid password';
+              }
+              if (value != passwordController.text) {
+                return 'Enter a matched password';
               }
             },
           ),
-          verticalSpace(24),
+          verticalSpace(16),
           PasswordValidations(
             hasLowerCase: hasLowercase,
             hasUpperCase: hasUppercase,

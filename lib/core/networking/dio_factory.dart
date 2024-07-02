@@ -10,7 +10,7 @@ class DioFactory {
   /// private constructor as I don't want to allow creating an instance of this class
   DioFactory._();
 
-  static void addDioHeaders() async {
+  static Future<void> addDioHeaders() async {
     dio?.options.headers = {
       'Accept': 'application/json',
       'Authorization':
@@ -42,11 +42,5 @@ class DioFactory {
     } else {
       return dio!;
     }
-  }
-
-  static void setTokenIntoHeaderAfterLogin(String token) {
-    dio?.options.headers = {
-      'Authorization': 'Bearer $token',
-    };
   }
 }

@@ -19,58 +19,66 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Welcome Back',
-                  style: TextStyles.font24BlueBold,
-                ),
-                verticalSpace(8),
-                Text(
-                  'We\'re excited to have you back, can\'t wait to see what you\'ve been up to since you last logged in.',
-                  style: TextStyles.font14GrayRegular,
-                ),
-                verticalSpace(36),
-                Column(
-                  children: [
-                    const EmailAndPassword(),
-                    verticalSpace(24),
-                    Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyles.font13BlueRegular,
+          padding: EdgeInsets.fromLTRB(24.w, 50.h, 24.w, 24.h),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 7.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Welcome Back',
+                              style: TextStyles.font24BlueBold,
+                            ),
+                            verticalSpace(8),
+                            Text(
+                              'We\'re excited to have you back, can\'t wait to see what you\'ve been up to since you last logged in.',
+                              style: TextStyles.font14GrayRegular,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    verticalSpace(40),
-                    AppTextButton(
-                      buttonText: "Login",
-                      textStyle: TextStyles.font16WhiteSemiBold,
-                      onPressed: () {
-                        validateThenDoLogin(context);
-                      },
-                    ),
-                    verticalSpace(16),
+                      verticalSpace(36),
+                      const EmailAndPassword(),
+                      verticalSpace(32),
+                      AppTextButton(
+                        buttonText: "Login",
+                        textStyle: TextStyles.font16WhiteSemiBold,
+                        onPressed: () async {
+                          await validateThenDoLogin(context);
+                        },
+                      ),
+                      const LoginBlocListener(),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min, // Ensure minimum height
+                  children: [
                     const TermsAndConditionsText(),
-                    verticalSpace(60),
+                    verticalSpace(24),
                     const DontHaveAccountText(),
-                    const LoginBlocListener(),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  void validateThenDoLogin(BuildContext context) {
+  Future<void> validateThenDoLogin(BuildContext context) async {
     if (context.read<LoginCubit>().formKey.currentState!.validate()) {
-      context.read<LoginCubit>().emitLoginStates();
+      await context.read<LoginCubit>().emitLoginStates();
     }
   }
 }
